@@ -1,0 +1,11 @@
+https://estadisticasbcra.com/api/documentacion
+
+Token
+eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1ODgyMTYwMzUsInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJjYXJib25lY2FyQGdtYWlsLmNvbSJ9.fLaux8gsfNFSUd9X3w5YAFWsV6VOKo9l989d8pOjLKTNop035I0jg-eCJFtzVgxAQrDpl7AYk06xYWcSfvWP-g
+
+Header a agregar
+Authorization: BEARER eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1ODgyMTYwMzUsInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJjYXJib25lY2FyQGdtYWlsLmNvbSJ9.fLaux8gsfNFSUd9X3w5YAFWsV6VOKo9l989d8pOjLKTNop035I0jg-eCJFtzVgxAQrDpl7AYk06xYWcSfvWP-g
+
+#Curl de ejemplo
+curl -X GET -H "Content-type: application/json" -H "Accept: application/json" -H "Authorization: BEARER eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1ODgyMTYwMzUsInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJjYXJib25lY2FyQGdtYWlsLmNvbSJ9.fLaux8gsfNFSUd9X3w5YAFWsV6VOKo9l989d8pOjLKTNop035I0jg-eCJFtzVgxAQrDpl7AYk06xYWcSfvWP-g
+" "https://api.estadisticasbcra.com/milestones"
