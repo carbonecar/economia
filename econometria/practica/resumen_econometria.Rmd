@@ -1,0 +1,170 @@
+---
+title: "Resumen ecuaciones econometria"
+author: "Carlos Carbone"
+date: "7/19/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+
+## Regresion lineal simple
+
+$$
+      Y_i=\beta_0+\beta_1*X_i+u
+$$
+
+Donde el subindice i denonta la observación numero y. "u" son todos los errores, observaciones y omisiones que se hacen. 
+Lo que calculamos son los parámetros $\beta_0$ y $\beta_1$ . 
+
+Nuestra regresión quedaría: 
+$$
+      \hat Y_i=\hat \beta_0+\hat \beta_1 *X_i
+$$
+Donde $\hat Y$ es nuestra variable dependendiente estimada y los $\hat\beta$ son nuestos estimadores de los $\beta$ . Estos estiamadores deben ser consistentes, insesgados y eficientes. 
+
+Estos estimadores se puede usar para predecir valores. Ahora bien, que encontremos relacion entre las X y las Y no significa CAUSALIDAD. 
+
+$\beta_0$ es la ordenada al origen, indica el valor que toma Y cuando X no participa de la ecuación. 
+$\beta_1$ es la relación marginal que tiene $X_i$ es cuanto varía Y cuando X varía en una unidad.
+
+## Regresion multiple
+
+### Supuestos de MCO 
+
+1. Linealidad en los parametros. $Y_i= \beta_0+\beta_1*X_i+u_i$ . Los parametros son $\beta$ y estos no deben estar elevados a ninguna potencia. 
+
+2. Valores de X independientes del error $cov(X_i,u_i)=0$
+
+3. Exogeneidad: El promedio de los errores, condicionados en X es cero $E(u_i|X)=0$ . ES decir en, en promedio, mis estimaciones son cero. 
+
+4. homoscedasticidad: la varianza $\sigma^2$ de los errores es constante a lo largo de las observaciones
+
+$$
+  var(u_i)=\sigma^2
+$$
+
+5. No autocorrelacion: $cov(u_i,u_j|X_i,X_j)=0$ Dado dos valores de $X(X_i,X_j)$ la correlacion entre $u_i$ y $u_j$ es cero. Es decir no hay relacion entre el error de i con el de j. 
+
+6. Observaciones mayores que los parámetros
+
+7. Naturaleza de la variable X 
+
+Cuando se cumplen los supuestos anteriores el estimador es MELI. 
+
+#### MELI
+
+1. Insesgado. No tiene sesgo. La esperanza del estimador es el parámetro. 
+
+$$
+        E[\hat \beta]=\beta
+$$
+2. Eficiente: de varianza minima: 
+
+$$
+  var[\hat\beta_1]<var[\tilde\beta]
+$$
+3. Consistencia:  
+
+$$
+ \lim_{x \to \infty}EMC=E{[\hat\beta_2-\beta_2]^2}=0
+$$
+
+### Varianza de los estimadores
+
+$$
+\begin{align}
+   \hat\sigma^2=&\frac{\sum{u_i^2}}{n-k} \\
+    var(\hat\beta_2)=&\frac{\hat\sigma^2}{\sum{(X_i-\bar X)^2}} \\
+    var(\hat\beta_1)=&\frac{\hat\sigma^2 * \sum{X_i^2}}{n*\sum{(X_i-\bar X)^2}} \\
+    cov(\hat\beta_1;\hat\beta_2)=&-\bar X* var(\hat\beta_2) \\
+\end{align}
+$$
+
+
+### Pruebas de hipotesis
+
+tc=t-critico
+
+$$
+\begin{align}
+  H_0: \beta=0 \\
+  H_1: \beta \not=  0 \\ 
+  tc=\frac{\hat\beta-\beta}{sd(\hat\beta)}  \\ 
+\end{align}
+$$
+
+A $sd(\hat\beta)$ se lo suele llamar tambien $ee(\hat\beta)$ . Esto es porque hay diferentes formas de calcular los errores estandar (ee) una forma es el desvío estandar en ese caso si corremos una regresion en R se puede ver usando el commando summary(regresion) en la columna que dice std. error. 
+
+
+
+### Regresion por el origen:
+
+En las regresiones con intercepto los estimadores $\beta$ se calculan como: 
+$$
+  \hat\beta=\frac{\sum{(Y_i-\bar Y)-(X_i-\bar X)}}{\sum{(X_i-\bar X)^2}}
+$$
+
+En cambio para las regresiones por el origen $Y=\beta_1*X+u_i$ los estimadores no estan centrandos y se calculan como:
+
+$$
+  \hat\beta=\frac{\sum{(Y_i)*(X_i)}}{\sum{(X_i^2)}}
+$$
+
+donde: 
+
+$$
+\begin{align}
+  var(\beta)&=\frac{\sigma^2}{\sum(X_i^2)} \\
+  \sigma^2&=\frac{\sum{u_i}}{n-1} \\
+\end{align}
+$$
+
+## Regresion lineal multiple. 
+
+
+## Heteroscedasticidad
+
+### Prueba de Breusch-Pagan
+1. Estimar el modelo $Y=\beta_0+\beta_1 *x_1+\beta_2*x_2+....+\beta_k* x_k+u$ y obtener los residuales cuadrados para cada observacion ($u_i^2$) 
+2. Hacer la regresion $\hat u^2=\delta_0+\delta_1 *x_1+\delta_2*x_2+....+\delta_k* x_k+error$ y conservar $R_{u^2}^2$ de la regresion. 
+3. Formar el estadístico F o el ML y calcular el p-value usando $F_{k,n-k-1}$ o $\chi_k^2$ para el estadisitico ML (multiplicadores de lagrange). 
+4. Si el p-value<$\alpha$ entonces RHN y por lo tanto no hay heteroscedasticidad. 
+
+Calculo de F y ML
+
+$$
+\begin{aligned}
+    F=&\frac{R_{u^2}^2/k}{(1-R_{u^2}^2)/(n-k-1)} \\
+    ML=& n*R_{u^2}^2 \\
+\end{aligned}
+$$
+
+### Prueba de White
+
+Una forma es hacerla similar a la Breusch-Pagan solo que la regresion inicial se construye multiplicando las variables cruzadas y elevandolas hasta la cantidad de variables que tenga, luego se hacen las mismas pruebas para validar cada uno de los $u_i^2$ . 
+
+Para dos variables el algoritmo sería: 
+
+1. Estimar el modelo 
+
+$$
+Y=\beta_0+\beta_1 *x_1+\beta_2*x_2+u
+$$ 
+y obtener los residuales cuadrados para cada observacion ($u_i^2$) 
+2. Hacer la regresion 
+
+$$
+\hat u^2_i=\delta_0+\delta_1 *x_{1i}+\delta_2*x_{2i}+\delta_3*x_{1i}^2+\delta_4*x_{2i}^2+\delta_5*x_{1i}*x_{2i}+error
+$$ 
+
+y conservar $R_{u_i^2}^2$ de la regresion. 
+
+3. Formar el estadístico F o el ML y calcular el p-value usando $F_{k,n-k-1}$ o $\chi_k^2$ para el estadisitico ML (multiplicadores de lagrange). 
+
+4. Si el p-value<$\alpha$ entonces RHN y por lo tanto no hay heteroscedasticidad. 
+
+
+
+

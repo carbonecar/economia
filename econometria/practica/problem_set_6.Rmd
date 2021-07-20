@@ -1,0 +1,202 @@
+---
+title: "Problem set 6"
+output: html_notebook
+---
+
+# Teoría
+
+Primero recordamos las formas funcionales de los modelos de regresion y su interpretacion
+
+1.   Log-Log (Lo usamos para medir la elasticidad. Al aumentar  1% X Y se modifica en $\beta_2$%)
+
+2.  Log-Lin
+  Un cambio relativo en Y ante un cambio absoluto en X. Al aumentar X en una unidad Y se modifica en ($\beta_2$ *100) %.
+  
+3.  Lin-Log
+  Cambio absuluto en Y ante un cambio relativo en X. Al aumentar 1% en X Y se modifica en $\beta_2$/100 unidades.
+  
+4.  Lin-Lin
+  Un incremento de X en una unidad produce una modificacion de $\beta_2$ unidades en Y. 
+
+
+Para una regresion lineal con variables dicotómicas (dummies) la fórma es: 
+
+$$
+    Yi=\beta_0+\beta_1 * Xi+\beta_2 * D_1+ \beta_3 * D_1* Xi+u_i
+$$
+ Si dividimos la ecuacion en dos (cuando $D_1$ es cero y cuando es uno) nos queda: 
+ 
+$$
+    Yi=\beta_0+\beta_1 * Xi+u_i
+$$
+$$
+    Yi=\beta_2 * D_1+ \beta_3 * D_1* Xi+u_i
+$$
+Aquí podemos observar 4 formas: 
+
+1. Que los interceptores y pendientes coincidan. **Coincidentes**
+2. Que no coincidan los interceptores y si la pendiente. **Paralelas**
+3. Que coincidan los intecepto y no la pendiente. **Concurrente**
+4. Que NO coincidan ni el intercepto ni la pendiente. **Disímbolas**
+
+
+Esto da lugar a 4 formas diferentes de la ecuación: 
+
+1.  $Yi=\beta_0+\beta_1 * Xi+u_i$ **En este caso la regresión es coincidente en su interceptor y pendiente con regresiȯn sin variables dicotómicas**. 
+
+2. $Yi=\beta_0+\beta_1 * Xi+\beta_2 * D_1+u_i$  Aqui $D_1$ es 1 y no tenemos $\beta_3$.
+En este caso $\beta_2 * D_1$ es un número y lo podríamos agrupar con el intercepto quedando. 
+$$
+  Yi=(\beta_0+\beta_2)+\beta_1 * Xi+u_i
+$$
+Bien se puede ver aca que esta forma de la regresión es paralela con la anterior. Este tipo de forma se llama paralela
+
+3. $Yi=\beta_0+\beta_1 * Xi+\beta_3 * D_1 * X_i+u_i$  Aqui $D_1$ es 1 y no tenemos $\beta_2$.
+En este caso $\beta_3 * D_1$ forma parte de la pendiente y podemos sacar factor común con $X_i$ 
+$$
+  Yi=\beta_0+(\beta_1+\beta_3) * Xi+u_i
+$$
+
+
+4. $Yi=\beta_0+\beta_1 * Xi+\beta_2 * D_1+ \beta_3 * D_1* Xi+u_i$  Aqui $D_1$ es 1 y tenemos $\beta_3$ es significativo.
+En este caso $\beta_3 * D_1$ forma parte de la pendiente  y $\beta_1$ del interceptor, entonces agrupando y sacando factor común tenemos. 
+
+$$
+   Yi=(\beta_0+\beta_2)+(beta_1+\beta_3) * Xi+i+u_i
+$$
+
+## Resumen. 
+
+En términos prácticos podemos correr una regresión con todos los parámetros $Yi=\beta_0+\beta_1 * Xi+\beta_2 * D_1+ \beta_3 * D_1* Xi+u_i$ y luego quedarnos con aquella que tenga un maryo $R^2$ ajustado.
+
+
+#### Concidente
+
+Tanto los regresores como el intercepto son iguales.
+
+#### Paralela
+
+Esta es cuando hay variables dicotomicas, entonces los regresores son iguales pero el intercepto es difference.
+
+#### Concurrente 
+Aqui los interceptores son iguales, pero son difernetes las pendientes. 
+
+#### Disimbolas
+Interceptores y pendientes son diferentes. 
+
+
+#### Punto 2
+
+Utilice la base de datos Wage2 del paquete Wooldridge y realice las 4 tipos de regresiones vista en clases (reincidente, coincidente, paralela y concurrente). Utilice como variable dicotomica la variable "black". ¿Hay discriminacion laboral?.
+
+Aca usamos una regresion log-lin. El ejercicio no lo pide ni lo explica. Pero la idea es tomar el salario=Y y edad=X, luego usar la variable black (si es negro) para ver si hay discriminación. Cuando hablamos de salarios se suele usar el modelo log-lin para explicar que por cada unidad que varia X el salario varia en b2 *100 %
+
+
+
+##### Regresor coincidente
+$$
+ \hat Y= \hat\beta_0+\hat\beta_1 *X 
+$$
+
+
+```{r}
+library(wooldridge)
+regresor_concidente<-lm(log(wage2$wage)~wage2$age,data = wage2)
+plot(x=wage2$age,y=log(wage2$wage))
+abline(regresor_concidente)
+```
+Si vemos el summary: 
+```{r}
+summary(regresor_concidente)
+```
+Podemos observar que cuando la dedad no aumenta el salario es de 605 (sin el %).
+Si se incrementa la edad en uno, el salario aumenta en 2,19%. 
+Podemos ver que tanto el interceptor como el parametro son significativos. 
+Los codigos nos indican que son significativos al 10%, 5% y 1%. 
+
+significance code |     p-value
+----------------- | ---------------
+   ***            |     [0, 0.001]
+    **            |  (0.001, 0.01]
+     *            |   (0.01, 0.05]
+     .            |    (0.05, 0.1]
+    empty         |       (0.1, 1]
+                  
+p-value< 0.05, entonces es significativo al 5%. 
+como tiene *** entonces esta en el intervalo [0, 0.001] por lo tanto es significativo al 0,1%.
+
+Veamos ahora que sucede si utilizamos la variable dicotómica **black** 
+
+#### Regresor paralelo
+$$
+   \hat Y= \hat\beta_0+ \hat\beta_1 * D_1  + \hat\beta_2 *X
+$$
+En términos de nuestro problema vamos a llamar a B1, black, asi la ecuacion quedaría: 
+
+$$
+   \hat Y= \hat\beta_0+ \hat black * D_1  + \hat\beta_2 *X
+$$
+```{r}
+regresor_paralelo=lm (log(wage)~age+factor(black),data=wage2)
+plot(x=wage2$age,y=log(wage2$wage))
+abline(regresor_paralelo)
+```
+
+
+```{r}
+ summary(regresor_paralelo)
+```
+Aqui podemos ver que el coeficiente **black**, el estimador, es significativo, ademas es negativo, con lo cual podríamos decir que existe discriminacion. 
+
+
+#### Regresor Concurrente
+
+$$
+    Y_i=\beta_0 +\beta_1  D_1 X_i+\beta_2X_i+U_I
+$$
+Entonces nuestro estimador tendra la forma:
+
+$$
+  \hat Y_i=\hat\beta_0 +\hat\beta_1  D_1 X_i+\hat\beta_2X_i   
+$$
+
+Esto implica que la variable D1*X1 tendria que ser una variable nueva. 
+Asi que la podemos crear directamente en el data frame
+
+```{r}
+#wage2$black_age=wage2$black*wage2$age
+#regresor_concurrente<-
+```
+
+#### Punto 8
+Considere el siguiente modelo: 
+$$
+  ln(wi)=3.2 + 0.06 Ed-0.15 Sx + 0.11 Hijo + ui
+$$
+
+a) proponga el modelo para el sexo masculno si tiene hijo. 
+b) Proponga el modelo para el sexo masculino si NO tiene hijo
+c) Proponga el modelo para el sexo femenino si tiene hijo. Explíquelo
+d) Proponga el modelo para el sexo femenino si no tiene hijo. Explíquelo.
+
+ 
+Modelos 
+
+a) $ln(wi)=3.2 + 0.06 Ed + 0.11 Hijo + ui$ 
+b) $ln(wi)=3.2 + 0.06 Ed + ui$
+c) $ln(wi)=3.2 + 0.06 Ed-0.15 * Sx + 0.11 Hijo + ui$
+d) $ln(wi)=3.2 + 0.06 Ed-0.15 *  Sx+ ui$
+
+```{r}
+masculino_hijo = function(x){3.2+0.11+ (0.06 * x)}
+masculino_sin_hijo = function(x){3.2+(0.06 * x)}
+femenino_hijo = function(x){3.2-0.15+0.11+ (0.06 * x)}
+femenino_sin_hijo = function(x){3.2-0.15+(0.06 * x)}
+matplot(x,cbind(masculino_hijo(x),masculino_sin_hijo(x),femenino_hijo(x),femenino_sin_hijo(x))
+        ,type="l",col=c("blue","green","red","orange"),ylab = "ln(salario)",xlab = "edad")
+
+```
+
+
+
+

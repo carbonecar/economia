@@ -1,0 +1,80 @@
+---
+title: "Resumen ecuaciones econometria"
+author: "Carlos Carbone"
+date: "7/19/2021"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Regresion lineal simple
+
+$$
+      Y_i=\beta_0+\beta_1*X_i+u
+$$
+
+Donde el subindice i denonta la observación numero y. "u" son todos los errores, observaciones y omisiones que se hacen. 
+Lo que calculamos son los parámetros $\beta_0$ y $\beta_1$. 
+
+Nuestra regresión quedaría: 
+$$
+      \hat Y_i=\hat \beta_0+\hat \beta_1 *X_i
+$$
+Donde $\hat Y$ es nuestra variable dependendiente estimada y los $\hat \beta$ son nuestos estimadores de los $\beta$. Estos estiamadores deben ser consistentes, insesgados y eficientes. 
+
+Estos estimadores se puede usar para predecir valores. Ahora bien, que encontremos relacion entre las X y las Y no significa CAUSALIDAD. 
+
+$\beta_0$ es la ordenada al origen, indica el valor que toma Y cuando X no participa de la ecuación. 
+$\beta_1$ es la relación marginal que tiene $X_i$ es cuanto varía Y cuando X varía en una unidad.
+
+## Regresion multiple
+
+### Supuestos de MCO 
+
+1. Linealidad en los parametros. $Y_i= \beta_0+\beta_1*X_i+u_i$. Los parametros son $\beta$ y estos no deben estar elevados a ninguna potencia. 
+
+2. Valores de X independientes del error $cov(X_i,u_i)=0$
+
+3. Exogeneidad: El promedio de los errores, condicionados en X es cero $E(u_i|X)=0$. ES decir en, en promedio, mis estimaciones son cero. 
+
+4. homoscedasticidad: la varianza $\sigma^2$ de los errores es constante a lo largo de las observaciones
+$$
+  var(u_i)=\sigma^2
+$$
+
+5. No autocorrelacion: $cov(u_i,u_j|X_i,X_j)=0$ Dado dos valores de $X(X_i,X_j)$ la correlacion entre $u_i$ y $u_j$ es cero. Es decir no hay relacion entre el error de i con el de j. 
+
+6. Observaciones mayores que los parámetros
+
+7. Naturaleza de la variable X 
+
+Cuando se cumplen los supuestos anteriores el estimador es MELI. 
+
+#### MELI
+1. Insesgado. No tiene sesgo. La esperanza del estimador es el parámetro. 
+$$
+        E[\hat \beta]=\beta
+$$
+2. Eficiente: de varianza minima: 
+$$
+  var[\hat\beta_1]<var[\tilde\beta]
+$$
+3. Consistencia:  
+$$
+\displaystyle \lim_{x \to \infty}EMC=E{[\hat\beta_2-\beta_2]^2}=0
+$$
+
+### Varianza de
+$$
+    \hat\sigma^2=\frac{\sum{u_i^2}}{n-k} \\
+    
+    var(\hat\beta_2)=\frac{\hat\sigma^2}{\sum{(X_i-\bar X)^2}} \\
+
+    var(\hat\beta_1)=\frac{\hat\sigma^2 * \sum{X_i^2}}{n*\sum{(X_i-\bar X)^2}} \\
+    
+    cov(\hat\beta_1;\hat\beta_2)=-\bar X* var(\hat\beta_2) 
+$$

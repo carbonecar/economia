@@ -1,0 +1,295 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Resumen ecuaciones econometria},
+  pdfauthor={Carlos Carbone},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Resumen ecuaciones econometria}
+\author{Carlos Carbone}
+\date{7/19/2021}
+
+\begin{document}
+\maketitle
+
+\hypertarget{regresion-lineal-simple}{%
+\subsection{Regresion lineal simple}\label{regresion-lineal-simple}}
+
+\[
+      Y_i=\beta_0+\beta_1*X_i+u
+\]
+
+Donde el subindice i denonta la observación numero y. ``u'' son todos
+los errores, observaciones y omisiones que se hacen. Lo que calculamos
+son los parámetros \(\beta_0\) y \(\beta_1\) .
+
+Nuestra regresión quedaría: \[
+      \hat Y_i=\hat \beta_0+\hat \beta_1 *X_i
+\] Donde \(\hat Y\) es nuestra variable dependendiente estimada y los
+\(\hat\beta\) son nuestos estimadores de los \(\beta\) . Estos
+estiamadores deben ser consistentes, insesgados y eficientes.
+
+Estos estimadores se puede usar para predecir valores. Ahora bien, que
+encontremos relacion entre las X y las Y no significa CAUSALIDAD.
+
+\(\beta_0\) es la ordenada al origen, indica el valor que toma Y cuando
+X no participa de la ecuación. \(\beta_1\) es la relación marginal que
+tiene \(X_i\) es cuanto varía Y cuando X varía en una unidad.
+
+\hypertarget{regresion-multiple}{%
+\subsection{Regresion multiple}\label{regresion-multiple}}
+
+\hypertarget{supuestos-de-mco}{%
+\subsubsection{Supuestos de MCO}\label{supuestos-de-mco}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Linealidad en los parametros. \(Y_i= \beta_0+\beta_1*X_i+u_i\) . Los
+  parametros son \(\beta\) y estos no deben estar elevados a ninguna
+  potencia.
+\item
+  Valores de X independientes del error \(cov(X_i,u_i)=0\)
+\item
+  Exogeneidad: El promedio de los errores, condicionados en X es cero
+  \(E(u_i|X)=0\) . ES decir en, en promedio, mis estimaciones son cero.
+\item
+  homoscedasticidad: la varianza \(\sigma^2\) de los errores es
+  constante a lo largo de las observaciones
+\end{enumerate}
+
+\[
+  var(u_i)=\sigma^2
+\]
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\item
+  No autocorrelacion: \(cov(u_i,u_j|X_i,X_j)=0\) Dado dos valores de
+  \(X(X_i,X_j)\) la correlacion entre \(u_i\) y \(u_j\) es cero. Es
+  decir no hay relacion entre el error de i con el de j.
+\item
+  Observaciones mayores que los parámetros
+\item
+  Naturaleza de la variable X
+\end{enumerate}
+
+Cuando se cumplen los supuestos anteriores el estimador es MELI.
+
+\hypertarget{meli}{%
+\paragraph{MELI}\label{meli}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Insesgado. No tiene sesgo. La esperanza del estimador es el parámetro.
+\end{enumerate}
+
+\[
+        E[\hat \beta]=\beta
+\] 2. Eficiente: de varianza minima:
+
+\[
+  var[\hat\beta_1]<var[\tilde\beta]
+\] 3. Consistencia:
+
+\[
+ \lim_{x \to \infty}EMC=E{[\hat\beta_2-\beta_2]^2}=0
+\]
+
+\hypertarget{varianza-de-los-estimadores}{%
+\subsubsection{Varianza de los
+estimadores}\label{varianza-de-los-estimadores}}
+
+\[
+\begin{align}
+   \hat\sigma^2=&\frac{\sum{u_i^2}}{n-k} \\
+    var(\hat\beta_2)=&\frac{\hat\sigma^2}{\sum{(X_i-\bar X)^2}} \\
+    var(\hat\beta_1)=&\frac{\hat\sigma^2 * \sum{X_i^2}}{n*\sum{(X_i-\bar X)^2}} \\
+    cov(\hat\beta_1;\hat\beta_2)=&-\bar X* var(\hat\beta_2) \\
+\end{align}
+\]
+
+\hypertarget{pruebas-de-hipotesis}{%
+\subsubsection{Pruebas de hipotesis}\label{pruebas-de-hipotesis}}
+
+tc=t-critico
+
+\[
+\begin{align}
+  H_0: \beta=0 \\
+  H_1: \beta \not=  0 \\ 
+  tc=\frac{\hat\beta-\beta}{sd(\hat\beta)}  \\ 
+\end{align}
+\]
+
+A \(sd(\hat\beta)\) se lo suele llamar tambien \(ee(\hat\beta)\) . Esto
+es porque hay diferentes formas de calcular los errores estandar (ee)
+una forma es el desvío estandar en ese caso si corremos una regresion en
+R se puede ver usando el commando summary(regresion) en la columna que
+dice std. error.
+
+\hypertarget{regresion-por-el-origen}{%
+\subsubsection{Regresion por el origen:}\label{regresion-por-el-origen}}
+
+En las regresiones con intercepto los estimadores \(\beta\) se calculan
+como: \[
+  \hat\beta=\frac{\sum{(Y_i-\bar Y)-(X_i-\bar X)}}{\sum{(X_i-\bar X)^2}}
+\]
+
+En cambio para las regresiones por el origen \(Y=\beta_1*X+u_i\) los
+estimadores no estan centrandos y se calculan como:
+
+\[
+  \hat\beta=\frac{\sum{(Y_i)*(X_i)}}{\sum{(X_i^2)}}
+\]
+
+donde:
+
+\[
+\begin{align}
+  var(\beta)&=\frac{\sigma^2}{\sum(X_i^2)} \\
+  \sigma^2&=\frac{\sum{u_i}}{n-1} \\
+\end{align}
+\]
+
+\hypertarget{regresion-lineal-multiple.}{%
+\subsection{Regresion lineal
+multiple.}\label{regresion-lineal-multiple.}}
+
+\hypertarget{heteroscedasticidad}{%
+\subsection{Heteroscedasticidad}\label{heteroscedasticidad}}
+
+\hypertarget{prueba-de-breusch-pagan}{%
+\subsubsection{Prueba de Breusch-Pagan}\label{prueba-de-breusch-pagan}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Estimar el modelo
+  \(Y=\beta_0+\beta_1 *x_1+\beta_2*x_2+....+\beta_k* x_k+u\) y obtener
+  los residuales cuadrados para cada observacion (\(u_i^2\))
+\item
+  Hacer la regresion
+  \(\hat u^2=\delta_0+\delta_1 *x_1+\delta_2*x_2+....+\delta_k* x_k+error\)
+  y conservar \(R_{u^2}^2\) de la regresion.
+\item
+  Formar el estadístico F o el ML y calcular el p-value usando
+  \(F_{k,n-k-1}\) o \(\chi_k^2\) para el estadisitico ML
+  (multiplicadores de lagrange).
+\item
+  Si el p-value\textless{}\(\alpha\) entonces RHN y por lo tanto no hay
+  heteroscedasticidad.
+\end{enumerate}
+
+Calculo de F y ML
+
+\[
+\begin{aligned}
+    F=&\frac{R_{u^2}^2/k}{(1-R_{u^2}^2)/(n-k-1)} \\
+    ML=& n*R_{u^2}^2 \\
+\end{aligned}
+\]
+
+\hypertarget{prueba-de-white}{%
+\subsubsection{Prueba de White}\label{prueba-de-white}}
+
+Una forma es hacerla similar a la Breusch-Pagan solo que la regresion
+inicial se construye multiplicando las variables cruzadas y elevandolas
+hasta la cantidad de variables que tenga, luego se hacen las mismas
+pruebas para validar cada uno de los \(u_i^2\) .
+
+Para dos variables el algoritmo sería:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Estimar el modelo
+\end{enumerate}
+
+\[
+Y=\beta_0+\beta_1 *x_1+\beta_2*x_2+u
+\] y obtener los residuales cuadrados para cada observacion (\(u_i^2\))
+2. Hacer la regresion
+
+\[
+\hat u^2_i=\delta_0+\delta_1 *x_{1i}+\delta_2*x_{2i}+\delta_3*x_{1i}^2+\delta_4*x_{2i}^2+\delta_5*x_{1i}*x_{2i}+error
+\]
+
+y conservar \(R_{u_i^2}^2\) de la regresion.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\item
+  Formar el estadístico F o el ML y calcular el p-value usando
+  \(F_{k,n-k-1}\) o \(\chi_k^2\) para el estadisitico ML
+  (multiplicadores de lagrange).
+\item
+  Si el p-value\textless{}\(\alpha\) entonces RHN y por lo tanto no hay
+  heteroscedasticidad.
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,132 @@
+---
+title: "Homocedasticidad"
+author: "Carlos Carbone"
+date: "6/13/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Homocedasticidad
+
+La varianza de los errores es constante entonces: 
+$$
+  var(\hat\beta|x)=\sigma^2 *(X^TX)^{-1}
+$$
+Si hay Heterocedasticidad
+$$
+    var(\hat\beta^*|x ) =(X^TX)^{-1}  X^T \Omega X (X^TX)^{-1}
+$$
+Entonces: 
+$$
+  var(\hat\beta|x)<var(\hat\beta^*|x ) 
+$$
+Para no subestimar la varianza, es decir, que el t me de mucho mas grande, se usan los errores de white o errores robusto.
+
+### Errores robustos: 
+Dividir a toda la regresion por el desvio $\sigma_i$
+
+
+#### Prueba de park: 
+Dos estapas
+1) regresion lineal, obtener el error y elevarlo al cuadrado
+2) aplicar el ln al error y construir una regresion lineal del error cuadratico en funcion del logaritmo de x
+
+$$
+  Y_i=\beta_0+\beta_1X_i+U_i
+$$
+
+$$
+    ln(\hat u_i^2)=ln(\sigma^2)+\beta * ln(x_i)+v_i
+$$  
+Entonces si $\beta$ es significativo entonces hay relacion entre ln(x) y ln(u_i^2) y por lo lo tanto es heterocedastico. 
+
+
+#### 2) Descargue la base de datos "gpa3" de la libreria Wooldrige. 
+a) EStime la regresion:
+$$
+  compgpa_i=\beta_0+\beta_1*sat u_i+\beta_2* hsperc u_i+ \beta_3* tothrsu_i+u_i
+$$
+b) Utlizice la matriz de varianzas y covarianzas mpor MCO
+d) utilice la matriz de varianzas y covariazas corregida pr white (errores rubustos)
+
+```{r}
+library(wooldridge)
+library(lmtest)
+library(car)
+regressor_eje2<-lm(gpa3$cumgpa~gpa3$sat+gpa3$hsperc+gpa3$tothrs,data = gpa3)
+summary(regressor_eje2)
+
+stargazer(regressor_eje2,type="text")
+
+vcov(regressor_eje2)
+coeftest(regressor_eje2)
+#testeamos usando los errores robustos de white
+coeftest(regressor_eje2, vcov=hccm)
+
+```
+
+#### Estimacion por medio de MCG y MCP
+
+#### 4 Contamos con los siguientes datos para dos variables Y,X y estimamos
+a) Regresion MCO
+b) MCP $\sigma_i^2=\sigma^2 * X_i$ (Minimos cuadrados ponderados)
+c) MCP $\sigma_i^2=\sigma^2 * X_i^2$ (Minimos cuadrados ponderadores)
+
+```{r}
+rm(list = ls())
+library(stargazer)
+y<-c(5,2,0,1,3)
+x<-c(3,2,1,1,2)
+datos<-data.frame(y,x)
+
+regressorMCO<-lm(formula = y~.,data =datos)
+
+summary(regressorMCO)
+
+stargazer(regressorMCO,type = "text")
+
+datos$y2<-datos$y/sqrt(datos$x)
+datos$unosobrexi<-1/sqrt(datos$x)
+datos$xnueva<-datos$x/sqrt(datos$x)
+
+regressorMCP<-lm(formula = y2~0+unosobrexi+xnueva,data =datos )
+
+summary(regressorMCP)
+stargazer(regressorMCO,regressorMCP,type="text")
+
+```
+
+
+#### 3
+Con el test de braun pagan vemos que en realidad no es Homocedastico (si el p-value<alpha). 
+En terminos concretos tenemos que
+$H_0$: es homocedastico 
+$H_1$: No se homocedastico. 
+Por lo tanto si el p-value<alpha, rechazo hipotesis nula $H_0$ y es heterocedastico. 
+
+
+```{r}
+library(lmtest)
+
+regression_eje3<-lm(hprice1$price~hprice1$lotsize+hprice1$sqrft,data = hprice1)
+
+bptest(regression_eje3)
+
+
+bptest(reg, ~ fitted(reg) + I(fitted(reg)^2) )
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+
+

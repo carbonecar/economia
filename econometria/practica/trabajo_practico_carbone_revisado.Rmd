@@ -1,0 +1,258 @@
+---
+title: "trabajo_practico_carbone.pdf"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Pregunta 1: Cobb-Duglas
+
+Usted está interesado en estimar la función de producción de una empresa condicional al factor trabajo (L) y al factor capital (K). Para eso, se sabe que la funcióon Cobb-Douglas es:
+$$
+    Y = AK^\alpha L^\beta:
+$$
+Donde Y es la producción, A es la tecnología, L es el factor trabajo y K es el factor capital.
+
+
+a) Utilice la base de datos llamada "Data.xlsx.", la hoja Pregunta 1.
+b) Grafique la relacióon entre trabajo y produccióon. Comente.
+c) Grafique la relación entre capital y producción. Comente.
+d) Estime los coefiientes $\alpha$ y $\beta$. Interprete cada uno de los coeficientes.
+e) Realice un test para corroborar si $\alpha$ es estadisticamente distinto a 0.5.
+f) Realice un test para corroborar si ($\alpha$ + $\beta$) es estadísticamente distinto a 1.
+
+
+### punto a y b
+```{r fig.height=3}
+library(readxl)
+pregunta_1=read_excel("Data.xlsx",sheet="Pregunta 1")
+plot(x=pregunta_1$l,y=pregunta_1$Y,xlab = "Trabajo",ylab = "Produccion")
+```
+
+En la figura anterior se puede ver que a medida que se incrementa el trabajo, se incrementa la produccion, pero no linealmente sino mas bien con una forma de funcion de raíz.  Esto se debe a la ley de rendimientos decrecientes. 
+
+### Punto c
+```{r}
+plot(x=pregunta_1$k,y=pregunta_1$Y,xlab = "Capital",ylab = "Produccion")
+
+```
+
+En la figura anterior se puede ver que a metida que se incrementa el capital, se incrementa la producción, pero no linealmente sino mas bien con una forma de funcion de raíz, aunque mas empinada que con el trabajo, es decir, mas parecida a una lineal. 
+
+### Punto d
+
+Como lo único que sabemos haces son regresiones lineales lo primero que hay que hacer es aplicarle el logaritmo para linealizar la funcón y "bajar" los $\alpha$ y $\beta$ asi:
+$$
+  Y=AK^\alpha L^\beta ==> ln(Y)= ln(AK^\alpha L^\beta)
+$$
+Aplicando propiedades de logaritmos tenemos: 
+$$
+  ln(Y)= ln(A) + \alpha * ln(K)+ \beta * ln(L)
+$$
+Esta ecuación se corresponde a una ecuación  de la forma log-log para un modelo de regresion lineal. 
+Ya sabemos que esta regresión represnta que un aumento de 1% en K  implica una variacion en Y  de $\alpha\%$ . Esto es basicamente la elasticidad de la producción respecto del capital (K)
+
+Ahora corremos la regresion lineal: 
+
+```{r}
+pregunta_1$ln_y<-log(pregunta_1$Y)
+pregunta_1$ln_l<-log(pregunta_1$l)
+pregunta_1$ln_k<-log(pregunta_1$k)
+
+regresor_log_log<-lm(pregunta_1$ln_y~ pregunta_1$ln_l+pregunta_1$ln_k,data = pregunta_1)
+summary(regresor_log_log)
+```
+Recordamos la ecuación: $ln(Y)= ln(A) + \alpha * ln(K)+ \beta * ln(L)$.
+
+Como resultado observamos que $\alpha$ acompaña a K y $\beta$ a L. Entonces vemos que $\beta=1/2$ y $\alpha+0.7$. Ambos son significativos al 10%, 5% y 1%. 
+
+El intercepto A que es la tecnología tambíen es significativo  y su valor es .741. En este caso no parece tener mucho sentido, puesto que si captial ni trabajo no veo como puede haber producción. 
+
+El R ajustado es 1 es decir que marca una correlacion perfecta. 
+El estadisitico F es significativo, eso significa que todas las variables conjuntamente son significativas. 
+
+En términos del problema la elasticidad produccion-trabajo es 0.5 y la elasticidad produccion-capital es 0.741. 
+Eso signifcia que cuando el trabajo aumento en 1% la produccion lo hace en 0.5% y cuando el capital aumenta 1% la produccion lo hace en 0.741%. Esto se condice con el grafico donde veíamos que la pendiente era mas empinada con el capital que con el trabajo. 
+
+
+### Punto e
+
+Tenemos que ver si $\hat\alpha$ que es el regresor del capital (K) es estadísiticamente diferente de 0.5. 
+
+Eso significa plantear como hipotesis nula que $H_0=\hat\alpha -0.5=0$  hipotesis alternativa $H_a=\hat\alpha-0.5\not=0$. 
+
+Rechazar la hipotesis nula implica que $\hat\alpha$ es estadísticamente distinto a 0.5.
+
+entonces para  $\hat\alpha$=0.7 calculamos el estadístico t: 
+
+$$
+              \frac{\hat\alpha-0.5}{ee(\hat\alpha)}
+$$
+```{r}
+
+  k<- coef(summary(regresor_log_log))[3,1]
+  stErrorK<-coef(summary(regresor_log_log))[3,2]
+  
+  
+  tvalue<-((k-0.5)/stErrorK)
+  tvalue
+```
+
+Este valor de t es mucho mas alta que cualquier que pueda obtener en tabla de distribucion t. 
+Por lo tanto RHN por lo tanto $\alpha$=0.7 es estadisticamente distinto de a 0.5
+
+Pero también podemos calcular el p-value. El p value nos indica el nivel de significacia por debajo del cual no se rechaza la hipotesis nula: 
+$$
+  p{-}value=1-\phi(t), siendo\ t=\frac{\hat\beta-\beta}{ee(\hat\beta)}
+$$
+Asi que volviendo a hacer lo calculos obtenemos el p-value: 
+```{r}
+## Aca puedo usar lower.tail=FALSE, pero para resptar la ecuacion no lo uso. 
+## tambien se podría usar pt, es decir una distribucion t-student, pero para seguir la teoría
+# que indica que para una mustra grande ya se toman los valores de una normal se elige esta misma.
+p_value<-1-pnorm(tvalue)    
+sprintf("p-value: %f, t-value: %f",p_value,tvalue)
+```
+Por cuestiones de calculo de coma flotante el p-value es cero, pero de todas formas el significado es el mismo, es muy pequeño por lo tanto es significativo al 10%, al 5% y al 1% y se rechaza la hipotesis nula.
+
+
+### Punto f
+
+Aca hay dos formas, una es con una prueba F y la otra que es mas sencilla pero menos general. Optamos por la segunda dado que tiene un procedimiento identico al primero.
+
+entonces $H_0: \alpha + \beta=1$ y $H_1: \alpha + \beta\not= 1$.
+
+Estimamos el nuevo t. 
+
+$$
+ t= \frac{(\alpha+\beta)-1}{ee(\alpha+\beta)}
+$$
+Esto quedaria: 
+$$
+  t= \frac{(\alpha+\beta)-1}{ \sqrt{var(\alpha)+var(\beta)+2 * cov(\alpha,\beta)}}
+$$
+```{r}
+l<- coef(summary(regresor_log_log))[2,1]
+stErrorL<-coef(summary(regresor_log_log))[2,2]
+
+vcov(regresor_log_log)[3,2]
+
+# t_no_restringido<-((k+l)-1)/sqrt(((stErrorK^2+stErrorL^2)+2*(-6.542509^-12)))
+
+t_no_restringido<-((k+l)-1)/sqrt(((stErrorK^2+stErrorL^2)+2*(vcov(regresor_log_log)[3,2])))
+
+p_value_no_restringido<-1-pnorm(t_no_restringido)    
+sprintf("p-value: %f y el t_no_restringido: %f",p_value_no_restringido,t_no_restringido)
+
+```
+Nuevamente puede verse como en el caso anterior, el p-value <0.01 por lo tanto RHN por lo tanto es estadisticamente distinto de 1. 
+
+
+## Pregunta 2: Regresión múltiple con variables dicotómicas. 
+
+
+Usted está interesado en estudiar la ecuación de Mincer (impacto del nivel educativo en los ingresos).
+Para eso, utilice la hoja Pregunta 2 de la base de datos llamada "Data.xlsx.".
+Esta base de datos posee la siguiente información:
+- Sexo (variable categórica) que toma el valor 1 cuando el individuo es varóon y 2 cuando es mujer.
+- Edad (variable continua).
+- Nivel educativo (variable categórica) que toma el valor 1 para primaria incompleta, 2 primaria
+completa, 3 secundaria incompleta, 4 secundaria completa 5 universitario incompleto, 6 universitario
+completo.
+- Ingreso (variable continua).
+Para eso usted intenta estimar los siguiente modelos:
+
+
+$$
+  ingreso_i=\beta_0+\beta_1*edad+u_i
+$$
+
+$$
+   ingreso_i=\beta_0+\beta_1*edad+\delta*Mujer+u_i
+$$
+$$
+  ingreso_i=\beta_0+\beta_1*edad+\delta*Mujer+\gamma * NivEd+u_i
+$$
+
+```{r}
+library(stargazer)
+data_mincer=read_excel("Data.xlsx",sheet="Pregunta 2")
+regresor_mincer_1<-lm(data_mincer$ingreso~data_mincer$edad)
+regresor_mincer_2<-lm(data_mincer$ingreso~data_mincer$edad+factor(data_mincer$sexo))
+regresor_mincer_3<-lm(data_mincer$ingreso~data_mincer$edad+factor(data_mincer$sexo)+factor(data_mincer$nivel_ed))
+```
+
+\newpage
+
+```{r}
+stargazer(regresor_mincer_1,regresor_mincer_2,regresor_mincer_3, type="text")
+```
+
+\newpage
+## Interpretaciones: 
+### Modelo 1
+
+R2 adjustado=0.039, lo que implica que el modelo en greneral es muy poco representativo esto seguro se debe a que la regresión que mas representaría el modelo es una polinómica y no una lineal (ocurre con todos los modelos que siguen abajo). 
+F al 10%, 5% y 1% para todos los modelos lo que significa que es globalmente significativo
+
+Significacia de la constante y el parametro regresor. Ambos son significativos al 10%, 5% y 1%.
+
+Cuando la edad es 0 los ingresos son 12,087.350 (esto claramente no tiene sentido y se debe a que los datos parten de una edad legal para trabajar)
+
+Por cada año que aumenta la edad el ingreso se incrementa en 383.73. 
+
+
+### Modelo 2
+Significacia global R2 adjustado=0.057. Lo que implica que el modelo en greneral es muy poco significativo. 
+
+Significacia de la constante y los parametro regresores. Todos son significativos al 10%, 5% y 1%.
+
+Para el caso en que se es varón y la edad es cero el ingreso es de 15,056.60 (nuevamente esto no tiene sentido pero es una extrapolación. Podríamos interpretar como que el salario sin antiguedad o al ingresar a un trabajo con edad legal es el mencionado.)
+
+Para el caso en que se es mujer y la edad es cero (mismos comentarios sobre la extrapolación que en los casos anteriores) el salario se decrementa en -6,568.779 o sea que el ingreso es $15,056.60  -6,568.779$. 
+
+En todos los casos por cada año de antiguedad el ingreso se incrementa en 381.740.
+
+
+### Modelo 3
+Significacia global R2 adjustado=0.197. Lo que implica que el modelo en greneral es muy poco significativo. 
+
+Significacia de la constante y los parametro regresores. Todos son significativos al 10%, 5% y 1% con salvedad del nivel educativo que lo es al 10% y al 5% y el intercepto que no es significativo. 
+
+
+Para el caso en que se es varón, la edad es cero y tiene primaria incompleta el ingreso es de 357.21  (nuevamente esto no tiene sentido pero es una extrapolación.)
+
+En el caso de tener primaria completa el ingreso se incrementa en  5,440.98, para la secundaria incompleta en 9,146.914, para la secundaria completa  13,960.820, universitario incompleto 16,995.350 y universitario completo 31,329.630.
+
+Para el caso en que se es mujer el ingreso se decrementa en $10,943.300.
+
+En todos los casos por cada año de antiguedad el ingreso se incrementa en $393.82.
+
+\newpage
+## Pregunta 3: Ecuación de Mincer con logaritmos en el ingreso
+
+Realice el punto anterior con la particularidad que los modelos ahora son:
+
+$$
+  ln(ingreso_i)=\beta_0+\beta_1*edad+\delta*Mujer+\gamma * NivEd+u_i
+$$
+
+Corremos la regresión log-lin
+
+```{r}
+regresor_mincer_log<-lm(log(data_mincer$ingreso)~data_mincer$edad+factor(data_mincer$sexo)+factor(data_mincer$nivel_ed))
+
+stargazer(regresor_mincer_log,type="text")
+```
+
+Aquí podemos ver que todos los regresores son significativos al 10%, 5% y 1%, pero el modelo general R2 explica muy poco (el 22%). Sin embargo como F=109.976 es significativo el modelo en forma global, es decir, todos sus regresores juntos. 
+
+
+Acá el análisis es el mismo que el anterior, pero se modifica el valor de los regresores y el intercepto, cambiando la interpretacion por una variación en el parámetro, edad por ejemplo, en un año genera un incremento del ingreso en (0.015 * 100) % lo que es igual a 1,5%. Es decir, por cada año que se incrementa el aumento del ingreso se incrementa en (0.015 * 100)% o sea 1,5%. Misma interpretación vale para el resto de los regresores.
+
+

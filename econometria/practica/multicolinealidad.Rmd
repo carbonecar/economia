@@ -1,0 +1,196 @@
+---
+title: "multicolinealidad"
+author: "Carlos Carbone"
+date: "6/11/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Multicolinealidad
+
+Mide el grado de asociación lineal entre las variables (Xi,Xj). 
+
+Podemos ver que una variable se relacion con la otra por ejemplo X2=2*X1. 
+Como la calculamos: 
+$$
+  cor(x_i,x_k)\not = k
+$$
+Si el valor de k=1 o k=-1 
+Tener en cuenta que no aplica para relacines NO lineales: 
+$$
+  Y=\beta_0+\beta_1*X_1+\beta_2*X_1^2
+$$
+No aplica porque no viola el supuesto de multicolinealidad, eso va a pasar siempre que $X_1$ tenga una variación en la muestra realtivamente grande, de no ser así no se distanciaria mucho de $X_1^2$ y si habría multicolinealidad.
+
+
+
+### 2 Verdadero o Falso: 
+   a) a pesar de la multicolinealididad perfecta, los estimadores de MCO son MELI. 
+
+FALSO. Si hay multicolinealidad perfecta los coeficientes de resgresion de las vvariables X son indeterminados y sus rrores estandar son infinitos. Los estimadores no son MELI ya no que no cumplen con el supuesto de Gauss- Markov
+
+  b) Las correlaciones altas entre parejas de regresoras no sugieren una alta multicolinealidad. 
+
+FALSO. Si la correlacion es alta presisamente sujiere multicolinealidad alta. 
+
+### Cree una variable x1 = rnorm(30000,1,2).
+```{r}
+  x1<-rnorm(3000,1,2)
+```
+  a) Obtenga a x2 como x1+rnorm(30000,0,1).
+
+```{r}
+  x2<-x1+rnorm(3000,0,1)
+```
+  b) Obtenga la correlación entre x1 y x2.
+```{r}
+    cor(x1,x2)
+``` 
+c) Obtenga a y como 2+5*x1+2*x2+rnorm(30000,0,1). ¿Qué sucede?
+
+```{r}
+    y=2+5*x1+2*x2+rnorm(3000,0,1)
+    datos=data.frame(y,x1,x2)
+library(GGally)
+ggpairs(datos, lower = list(continuous = "smooth"),
+        diag = list(continuous = "bar"), axisLabels = "none")
+``` 
+
+d) Realice una regresión entre y, x1 y x2.
+
+```{r}
+  regressor_ejer_3<-lm(y~.,data = datos)
+
+  summary(regressor_ejer_3)
+``` 
+A pesar de tener una alta correlacion entre x1 y x2 ambos dan que son significativos.
+
+
+### 4) Cree una variable x1 = rnorm(30000,1,2).
+```{r}
+  x1<-rnorm(3000,1,2)
+``` 
+a) Obtenga a x2 como x1+rnorm(30000,0,0.001)
+```{r}
+  x2<-x1+rnorm(3000,0,0.001)
+``` 
+
+b) Obtenga la correlación entre x1 y x2. ¿Qué sucede?
+
+```{r}
+ cor(x1,x2)
+``` 
+Se puede observar una correlacion casi perfecta
+
+c) Obtenga a y como 2+5*x1+2*x2+rnorm(30000,0,1).
+
+```{r}
+    y=2+5*x1+2*x2+rnorm(3000,0,1)
+    datos=data.frame(y,x1,x2)
+library(GGally)
+ggpairs(datos, lower = list(continuous = "smooth"),
+                diag = list(continuous = "bar"), axisLabels = "none")
+
+```     
+
+d) Realice una regresión entre y, x1 y x2. ¿Qué sucede?
+
+```{r}
+  regressor_ejer_3<-lm(y~.,data = datos)
+
+  summary(regressor_ejer_3)
+``` 
+
+Aca vemos que solo el intercepto da significativo. 
+
+
+## 6 
+
+```{r}
+rm(list=ls())
+library(stargazer)
+
+
+consumo=c(6127.9,
+          6863.1,
+          10687.4,
+          5518.4,
+          9783.9,
+          4828.9,
+          8614.3,
+          4311.9,
+          5216.1,
+          7486.6,
+          4898.3,
+          7924.3,
+          4473.3,
+          9409.9,
+          9000.1,
+          6316.5,
+          5176.0)
+
+ingresop=c(8467.0,
+           9113.0,
+           14162.0,
+           7392.0,
+           13067.0,
+           6357.0,
+           11969.0,
+           5647.0,
+           6323.0,
+           9638.0,
+           6159.0,
+           10229.0,
+           5989.0,
+           13147.0,
+           12003.0,
+           7895.0,
+           6500.0)
+
+ingresod=c(79.1,
+           82.8,
+           128.7,
+           66.0,
+           121.0,
+           56.8,
+           111.9,
+           50.9,
+           58.0,
+           90.1,
+           56.5,
+           95.6,
+           54.4,
+           121.7,
+           107.2,
+           71.1,
+           58.6)
+
+datos=data.frame(consumo,ingresop,ingresod)
+
+library(GGally)
+ggpairs(datos, lower = list(continuous = "smooth"),
+        diag = list(continuous = "bar"), axisLabels = "none")
+
+```
+
+Aca vemos que hay una alta correlacion, pero no perfecta, en cmabio con el en ingresoD e ingresoP hay una correlacion muy alta 0.999 por lo que vamos a tener un problema de multicolinealidad. Una forma de solucionarlo es quitarlo del modelo. 
+
+```{r}
+
+reg<-lm(consumo~.,data = datos)
+summary(reg)
+
+```
+Al correr la regresion podemos observar tambien que R^2 ajustado es muy alto, pero los regresores son muy pocos significativos. 
+
+Ahora probamos quitando el consumoP y ConsumoD del modelo
+
+```{r}
+regPesos<-lm(consumo~datos$ingresop ,data = datos)
+regDolares<-lm(consumo~datos$ingresod,data = datos)
+
+stargazer(reg,regPesos,regDolares,type="text")  
+```

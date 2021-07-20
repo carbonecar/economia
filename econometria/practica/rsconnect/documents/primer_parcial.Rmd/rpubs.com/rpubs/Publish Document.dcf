@@ -1,0 +1,10 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/770192/ef25acdf36de4dbab20e3281a1f761da
+bundleId: https://api.rpubs.com/api/v1/document/770192/ef25acdf36de4dbab20e3281a1f761da
+url: http://rpubs.com/carboncar/770192
+when: 1621136800.18114

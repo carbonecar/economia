@@ -1,0 +1,141 @@
+---
+title: "Primer Parcial"
+output:
+  html_notebook: default
+  word_document: default
+  html_document:
+    df_print: paged
+---
+
+## Teoría
+
+### Punto 1
+Un investigador esta interesado en estimar 𝐸[𝑌]. Sin embargo, una investigadora le sugiere
+que seria mejor estimar 𝐸[𝑌|𝑋]. Explque la diferencia de cada una de las metodologías y
+grafique.
+
+El valor esperado de Y es la esperanza matemática, el promedio, sin tener en cuenta ninguna
+otra variable mas que los valores de Yi. En cambio 𝐸[𝑌|𝑋] es la esperanza dado x, es decir, toma
+en cuenta la relación que tiene Y con X, en nuestro caso para la función de regresión muestral
+$$
+(*) Y=\beta_0+\beta_1 x+u   
+$$
+Sea Y=Consumo y X=Salario
+En el siguiente gráfico se ve que el consumo tiene una relación con el salario y el valor esperado del consumo en relación con el salario pasa por la recta (*).
+En cambio el promedio de consumo es 8
+
+```{r}
+x<-c(1,5,8,10,11,14)
+y<-c(4,6,7,8,9,14)
+datos=data.frame(x,y)
+regressor=lm(y~x,data = datos)
+plot(x,y)
+abline(regressor)
+abline(h=mean(y),col="blue")
+```
+### Punto 2)
+¿Cuándo debería usar cada una de las fórmulas? Explique detalladamente y comente en que se
+diferencian.
+
+$$
+(1)\hat\beta=\frac{\sum X*Y}{\sum X^2}
+$$
+$$
+(2)\hat\beta=\frac{\sum(X - \bar X)(Y-\bar Y)}{\sum(X-\bar X)^2}
+$$ 
+La fórmula (1) se refiere a una regresion lineal por el orgin.
+La fórmula (2) corresponde a la regresión lineal cuando tiene interceptor.
+El  *beta*  corresponde al calculo de la pendiente, en la formula  (1) se utiliza cuando el modelo al
+que se quiere aproximar es una regresion por el origen. La diferencia con (2) es, como se ve,
+que no esta centrada. Normalmente, salvo que exista una buena explicación, se
+debe utilizar la formula (2)
+
+
+
+### Punto 3
+Desarrolle y comente la veracidad de la siguiente frase: “todas variables con relación
+estadística tienen su correlación causal”.
+
+
+Falso. Correlación (la relación estadística) no implica causalidad, por ejemplo puedo tomar la
+variable libros comprados y tazas de leche llenas a la mitad en los bares de buenos aires,
+correr una regresión lineal, ver que R^2 es 0,80 y el p-value da 0.0001. Esto determina que
+están correlacionados. Ahora bien, cuál es la relación causal? A menos que los libros solo se
+vendan (o la mayoría de ellos se compran) en bares donde llenan a la mitad la tazas de leche
+difícilmente exista una relación causal.
+Este ejemplo muestra que, además de tener una relación estadística, debe existir un vector que
+vincule A con B de manera causal.
+
+
+## Punto 4
+4) Explique puntualmente que diferencia hay entre 𝛽^ y 𝛽. ¿Cuál es el fijo y cual el aleatorio?
+¿Por qué? Relacione con insesgadez, eficiencia y consistencia.
+
+ 𝛽^  (beta sombrero) es el estimador de beta que es el parámetro. Aca 𝛽^  es el
+aleatorio porque se usa con la muestra aleatoria y el parámetro es el fijo.
+
+Insesgadez, eficiencia y consistencia son las 3 características de un estimador insesgado. 
+Sicumple con esas caracterisitcas se puede decir que es un buen estimador, si es el de menor
+varianza, será MELI (en este caso que es una regresión lineal).
+
+## Práctica
+### Punto 1
+
+#### Punto A
+
+```{r}
+library(stargazer)
+vectorX_punto_1<-rnorm(1000,1,10)
+vectorU<-rnorm(1000,0,2)
+#Tomamos b0=3 y b1=5
+vectorY<-3+5*vectorX_punto_1+vectorU # aca creo la fucion y le sumo el vector directamente.
+#Nube de puntos del vector y,x
+plot(vectorX_punto_1,vectorY)
+# Los puntos parecen seguir una funcion lineal
+```
+
+#### Punto B y C y d
+```{r}
+modelo_1<-lm(vectorY~vectorX_punto_1,data = datos)
+plot(vectorX_punto_1,vectorY)
+abline(modelo_1)
+modelo_2<-lm(vectorY~0+vectorX_punto_1,data = datos)
+abline(modelo_2)
+#stargazer(modelo_1,type="text")
+#stargazer(modelo_2,type="text")
+```
+Si se amplía se puede ver que son muy parecidas las rectas, lo que condice con
+que las pendientes son muy parecidas también.
+
+```{r}
+stargazer(modelo_1,modelo_2,type="text")
+
+```
+El modelo 1 es una regresión de dos parámetros y el modelo 1 es una regresión por el origen.
+Se puede ver que en el modelo 2 no hay constante, ambos tiene un coeficiente de
+determinación muy parecido. La pendiente es muy similar en ambos 5.004 y 5.028 y ambos
+modelos son significativos al 10%, al 5% y al 1%. Para la regresión lineal con dos parámetros
+podemos decir que el 99,8% de las variaciones son explicadas por X y el interceptor es
+significativo al 10%, 5% y 1%.
+
+
+#### Punto e
+Si agregamos un vector con un conjunto de puntos con mayor desvío Y se va a volver más
+disperso, la recta ya no ajusta muy bien.
+
+### Punto 2
+Una empresa encuestó a la población para obtener que impacto tiene el ingreso en el consumo
+de su producto. 
+$$
+  consumo=\beta_1+\beta_2*Salario+u_i
+$$
+Interpretamos los parametros $$\beta_1=145$$
+eso significa que cuando el salario es 0 el consumo es 145. 
+El parámetro: $$ \beta_1=0.63$$
+es la pendiente, significa que por cada incremento en una unidad adicional del salario el consumo se incrementa en .63 unidades.
+
+𝐶𝑜𝑛𝑠𝑢𝑚𝑜i5 = 𝐶𝑜𝑛𝑠𝑢𝑚𝑜i ∗ 5. Entiendo que en este punto esta cambiando la escala esta
+multiplicando por 5 todos los valores del consumo en este caso al multiplicar todos los
+valores de Y (consumo) por 5 se modifica b1 y b2 b1*=5*b1 y b2*=5*b2.
+
+
