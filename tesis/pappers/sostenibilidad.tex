@@ -1,17 +1,31 @@
 \documentclass[12pt]{article}
 \usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
 \usepackage{graphicx}
+\usepackage{times}         % Times New Roman
+\usepackage{setspace}      % Para establecer el espaciado
+
+\setstretch{1.0}           % Espaciado simpl
 
 \title{La Sostenibilidad de la Deuda Técnica en una Empresa de Software}
-\author{Carlos Carbone}
-\date{25/07/2024}
+\author{}
+\date{}
 
 \begin{document}
 
 \maketitle
 
+\tableofcontents % Genera el índice automáticamente
+\newpage % Salto de página
+
+
 \begin{abstract}
-Este artículo explora la relación entre la deuda técnica en software y la sostenibilidad a largo plazo de una empresa de software. Utilizando conceptos de economía y derivadas, se muestra cómo la deuda técnica puede acumularse y afectar negativamente la productividad. Se presentan ecuaciones que modelan esta relación y se discute cómo mantener la sostenibilidad a través de un equilibrio adecuado entre la incurrencia y la reducción de la deuda técnica.
+Este artículo explora la relación entre la deuda técnica en software y la sostenibilidad a largo plazo de una empresa de software. 
+Utilizando conceptos de economía y derivadas, se muestra cómo la deuda técnica puede acumularse 
+y afectar negativamente la productividad, la inversión y el crecimiento. 
+Se presentan ecuaciones que modelan esta relación y se discute cómo mantener la sostenibilidad 
+a través de un equilibrio adecuado entre la incurrencia y la reducción de la deuda técnica.
 \end{abstract}
 
 \section{Introducción}
@@ -113,7 +127,6 @@ donde:
     \item \(\alpha\) es un coeficiente que mide el impacto negativo de la deuda técnica sobre la productividad.
 \end{itemize}
 
-\section{Derivadas y Cambio en el Tiempo}
 Para analizar cómo cambia la sostenibilidad de la deuda técnica en el tiempo, podemos tomar la derivada de \(D_t\) con respecto al tiempo:
 
 \[
@@ -127,6 +140,78 @@ Considerando la relación entre productividad y deuda técnica, podemos tomar la
 \]
 
 Esto muestra que la tasa de cambio en la productividad es proporcional a la tasa de cambio en la deuda técnica. Si la empresa no puede reducir suficientemente la deuda técnica \(R_t\) o si la nueva deuda técnica \(N_t\) es demasiado alta, la productividad disminuirá con el tiempo, poniendo en riesgo la sostenibilidad.
+
+
+\section{Impacto de la Deuda Técnica en el Crecimiento de la Empresa}
+
+La deuda técnica no solo afecta la productividad, sino que también puede tener un impacto significativo en el crecimiento general de una empresa de software. El crecimiento empresarial se puede modelar en términos de la capacidad de la empresa para aumentar su participación en el mercado, lanzar nuevos productos y mejorar la eficiencia operativa. Sin embargo, a medida que la deuda técnica se acumula, estas capacidades pueden verse comprometidas.
+
+\subsection{Crecimiento Reducido debido a la Deuda Técnica}
+
+El crecimiento de una empresa \(G_t\) en el tiempo \(t\) puede ser considerado como una función de la productividad \(P_t\) y la inversión en innovación \(I_t\):
+
+\[
+G_t = \beta P_t + \gamma I_t
+\]
+
+donde:
+\begin{itemize}
+    \item \( \beta \) es el coeficiente que mide la influencia de la productividad en el crecimiento.
+    \item \( \gamma \) es el coeficiente que mide la influencia de la inversión en innovación en el crecimiento.
+\end{itemize}
+
+Dado que la deuda técnica \(D_t\) reduce la productividad, la tasa de crecimiento también disminuirá si la deuda técnica no se maneja adecuadamente:
+
+\[
+G_t = \beta (P_0 - \alpha D_t) + \gamma I_t
+\]
+
+Esto muestra que un aumento en la deuda técnica \(D_t\) reduce la tasa de crecimiento \(G_t\), a menos que la empresa aumente significativamente su inversión en innovación \(I_t\) para compensar la caída en la productividad.
+
+\subsection{Efecto en la Innovación y Expansión}
+
+Además, una alta deuda técnica puede desviar recursos financieros y humanos que de otro modo se habrían utilizado para la innovación y la expansión del negocio. La inversión en innovación \(I_t\) puede verse limitada por los costos crecientes de mantener y mejorar un código base con alta deuda técnica. En términos de presupuesto, si una mayor proporción \(C_t\) se dedica a la gestión de la deuda técnica, menos recursos estarán disponibles para invertir en crecimiento:
+
+\[
+B_t = C_t + I_t
+\]
+
+\[
+I_t = B_t - C_t
+\]
+
+Si el costo de la deuda técnica \(C_t\) aumenta, la inversión en innovación \(I_t\) disminuye, lo que a su vez reduce el crecimiento \(G_t\) de la empresa:
+
+\[
+G_t = \beta (P_0 - \alpha D_t) + \gamma (B_t - C_t)
+\]
+
+En el largo plazo, esto puede llevar a una disminución de la competitividad en el mercado, limitando la capacidad de la empresa para crecer y sostenerse en un entorno dinámico.
+
+\subsection{Ciclo Vicioso de Deuda Técnica}
+
+Finalmente, si la deuda técnica no se gestiona adecuadamente, puede llevar a un ciclo vicioso donde la baja productividad reduce el crecimiento, y el crecimiento reducido limita la capacidad de la empresa para invertir en la reducción de la deuda técnica y la innovación. Este ciclo puede ser difícil de romper, especialmente si la deuda técnica alcanza niveles críticos.
+
+Este ciclo vicioso se puede representar de la siguiente manera:
+
+\begin{center}
+    \begin{tikzpicture}[node distance=2cm, auto]
+        % Nodes
+        \node (a) [draw, rectangle] {Deuda Técnica Alta};
+        \node (b) [draw, rectangle, right=of a] {Productividad Baja};
+        \node (c) [draw, rectangle, below=of b] {Crecimiento Reducido};
+        \node (d) [draw, rectangle, left=of c] {Menor Inversión en Reducción de Deuda};
+    
+        % Arrows
+        \draw[->] (a) -- (b);
+        \draw[->] (b) -- (c);
+        \draw[->] (c) -- (d);
+        \draw[->] (d) -- (a);
+    \end{tikzpicture}
+\end{center}
+
+Por lo tanto, la gestión proactiva de la deuda técnica es crucial para mantener un crecimiento saludable y sostenido a lo largo del tiempo.
+
 
 \section{Conclusión}
 
