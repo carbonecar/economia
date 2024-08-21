@@ -1,13 +1,13 @@
-\contentsline {section}{\numberline {1}Introducción}{2}{}%
-\contentsline {section}{\numberline {2}Definición y Acumulación de la Deuda Técnica}{2}{}%
-\contentsline {section}{\numberline {3}Costo de la Deuda Técnica}{3}{}%
-\contentsline {section}{\numberline {4}Sostenibilidad de la Deuda Técnica}{3}{}%
-\contentsline {section}{\numberline {5}Deducción Lógica de la Insostenibilidad}{3}{}%
-\contentsline {section}{\numberline {6}Ejemplo Numérico}{4}{}%
-\contentsline {section}{\numberline {7}Productividad y Deuda Técnica}{5}{}%
-\contentsline {section}{\numberline {8}Impacto de la Deuda Técnica en el Crecimiento de la Empresa}{5}{}%
-\contentsline {subsection}{\numberline {8.1}Crecimiento Reducido debido a la Deuda Técnica}{6}{}%
-\contentsline {subsection}{\numberline {8.2}Efecto en la Innovación y Expansión}{6}{}%
-\contentsline {subsection}{\numberline {8.3}Ciclo Vicioso de Deuda Técnica}{7}{}%
-\contentsline {section}{\numberline {9}Conclusión}{7}{}%
-\contentsline {section}{\numberline {10}Referencias}{8}{}%
+\contentsline {section}{\numberline {1}Introducción}{2}{section.1}%
+\contentsline {section}{\numberline {2}Definición y Acumulación de la Deuda Técnica}{2}{section.2}%
+\contentsline {section}{\numberline {3}Costo de la Deuda Técnica}{3}{section.3}%
+\contentsline {section}{\numberline {4}Sostenibilidad de la Deuda Técnica}{3}{section.4}%
+\contentsline {section}{\numberline {5}Deducción Lógica de la Insostenibilidad}{3}{section.5}%
+\contentsline {section}{\numberline {6}Ejemplo Numérico}{4}{section.6}%
+\contentsline {section}{\numberline {7}Productividad y Deuda Técnica}{5}{section.7}%
+\contentsline {section}{\numberline {8}Impacto de la Deuda Técnica en el Crecimiento de la Empresa}{5}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Crecimiento Reducido debido a la Deuda Técnica}{6}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Efecto en la Innovación y Expansión}{6}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Ciclo Vicioso de Deuda Técnica}{7}{subsection.8.3}%
+\contentsline {section}{\numberline {9}Conclusión}{7}{section.9}%
+\contentsline {section}{Referencias}{8}{section.9}%

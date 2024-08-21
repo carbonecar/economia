@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.7.24)  12 AUG 2024 00:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.7.24)  21 AUG 2024 02:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/Users/carbonecar/economia/tesis/pappers/sostenibilidad.tex
-(/Users/carbonecar/economia/tesis/pappers/sostenibilidad.tex
+**/Users/carbonecar/economia/tesis/pappers/tesis/regulacion_monetaria.tex
+(/Users/carbonecar/economia/tesis/pappers/tesis/regulacion_monetaria.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
 (/usr/local/texlive/2024/texmf-dist/tex/latex/base/article.cls
@@ -641,56 +641,67 @@ Package biblatex Info: ... and expl3
 Package: xparse 2024-02-18 L3 Experimental document command parser
 )
 Package: blx-case-expl3 2023/03/05 v3.19 expl3 case changing code for biblatex
-))
+)) (/usr/local/texlive/2024/texmf-dist/tex/latex/titlesec/titlesec.sty
+Package: titlesec 2023/10/27 v2.16 Sectioning titles
+\ttl@box=\box65
+\beforetitleunit=\skip76
+\aftertitleunit=\skip77
+\ttl@plus=\dimen262
+\ttl@minus=\dimen263
+\ttl@toksa=\toks35
+\titlewidth=\dimen264
+\titlewidthlast=\dimen265
+\titlewidthfirst=\dimen266
+)
 \@quotelevel=\count434
 \@quotereset=\count435
-LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 17.
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 22.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
-) (./sostenibilidad.aux)
-\openout1 = `sostenibilidad.aux'.
+) (./regulacion_monetaria.aux)
+\openout1 = `regulacion_monetaria.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
  (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count436
-\scratchdimen=\dimen262
-\scratchbox=\box65
+\scratchdimen=\dimen267
+\scratchbox=\box66
 \nofMPsegments=\count437
 \nofMParguments=\count438
-\everyMPshowfont=\toks35
+\everyMPshowfont=\toks36
 \MPscratchCnt=\count439
-\MPscratchDim=\dimen263
+\MPscratchDim=\dimen268
 \MPnumerator=\count440
 \makeMPintoPDFobject=\count441
-\everyMPtoPDFconversion=\toks36
+\everyMPtoPDFconversion=\toks37
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring ON on input line 17.
- (./sostenibilidad.out) (./sostenibilidad.out)
+Package hyperref Info: Link coloring ON on input line 22.
+ (./regulacion_monetaria.out) (./regulacion_monetaria.out)
 \@outlinefile=\write5
-\openout5 = `sostenibilidad.out'.
+\openout5 = `regulacion_monetaria.out'.
 
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
@@ -700,67 +711,44 @@ File: english.lbx 2023/03/05 v3.19 biblatex localization (PK/MW)
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
 (biblatex)             Assuming data encoding 'utf8'.
-\openout4 = `sostenibilidad.bcf'.
+\openout4 = `regulacion_monetaria.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'sostenibilidad.bbl' not found.
+Package biblatex Info: ... file 'regulacion_monetaria.bbl' not found.
 
-No file sostenibilidad.bbl.
-Package biblatex Info: Reference section=0 on input line 17.
-Package biblatex Info: Reference segment=0 on input line 17.
-(./sostenibilidad.toc)
+No file regulacion_monetaria.bbl.
+Package biblatex Info: Reference section=0 on input line 22.
+Package biblatex Info: Reference segment=0 on input line 22.
+[1
+
+{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc}] (./regulacion_monetaria.toc)
 \tf@toc=\write6
-\openout6 = `sostenibilidad.toc'.
+\openout6 = `regulacion_monetaria.toc'.
 
- [1
-
-{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc}]
-
-LaTeX Warning: Citation 'Macroeconom√≠a avanzada' on page 2 undefined on input line 34.
-
-Missing character: There is no √ in font ptmb7t!
-Missing character: There is no ≠ in font ptmb7t!
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 45.
-(/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/ts1ptm.fd
-File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-) [2] [3] [4] [5] [6]
-Overfull \hbox (2.48042pt too wide) in paragraph at lines 220--225
-\OT1/ptm/m/n/12 La deuda t[]ecnica, si no se maneja ade-cuada-mente, puede poner en riesgo la sosteni-
- []
-
-[7] [8] (./sostenibilidad.aux)
+ [2] [3] (./regulacion_monetaria.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
-Package rerunfilecheck Info: File `sostenibilidad.out' has not changed.
-(rerunfilecheck)             Checksum: BE7FB9DA79AF6207BA868B5E9DFA4BDB;2744.
-
-Package biblatex Warning: Please (re)run Biber on the file:
-(biblatex)                sostenibilidad
-(biblatex)                and rerun LaTeX afterwards.
-
-Package logreq Info: Writing requests to 'sostenibilidad.run.xml'.
-\openout1 = `sostenibilidad.run.xml'.
+Package rerunfilecheck Info: File `regulacion_monetaria.out' has not changed.
+(rerunfilecheck)             Checksum: 2106D87CA4AF6B0AF490A9FC1B328B93;1107.
+Package logreq Info: Writing requests to 'regulacion_monetaria.run.xml'.
+\openout1 = `regulacion_monetaria.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 26961 strings out of 474116
- 515637 string characters out of 5743682
- 1935187 words of memory out of 5000000
- 48918 multiletter control sequences out of 15000+600000
- 577114 words of font info for 72 fonts, out of 8000000 for 9000
+ 26907 strings out of 474116
+ 513156 string characters out of 5743682
+ 1932187 words of memory out of 5000000
+ 48886 multiletter control sequences out of 15000+600000
+ 572004 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,6n,107p,823b,1135s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on sostenibilidad.pdf (8 pages, 105921 bytes).
+ 102i,7n,107p,740b,803s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
+Output written on regulacion_monetaria.pdf (3 pages, 33955 bytes).
 PDF statistics:
- 160 PDF objects out of 1000 (max. 8388607)
- 132 compressed objects within 2 object streams
- 24 named destinations out of 1000 (max. 500000)
- 117 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 73 PDF objects out of 1000 (max. 8388607)
+ 63 compressed objects within 1 object stream
+ 11 named destinations out of 1000 (max. 500000)
+ 69 words of extra memory for PDF output out of 10000 (max. 10000000)
 

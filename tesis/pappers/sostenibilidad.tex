@@ -5,7 +5,9 @@
 \usepackage{graphicx}
 \usepackage{times}         % Times New Roman
 \usepackage{setspace}      % Para establecer el espaciado
-
+\usepackage[colorlinks=true,citecolor=blue]{hyperref}
+\usepackage{biblatex}
+\addbibresource{bibliografia.bib}
 \setstretch{1.0}           % Espaciado simpl
 
 \title{La Sostenibilidad de la Deuda Técnica en una Empresa de Software}
@@ -29,7 +31,7 @@ a través de un equilibrio adecuado entre la incurrencia y la reducción de la d
 \end{abstract}
 
 \section{Introducción}
-La \textbf{deuda técnica} es un concepto en ingeniería de software que se refiere a los costos futuros incurridos por elegir una solución rápida y fácil en lugar de una solución mejor estructurada y de más alta calidad. A medida que una empresa de software continúa desarrollando y manteniendo su código base, la deuda técnica puede acumularse, lo que puede poner en riesgo la sostenibilidad a largo plazo de la empresa. Para analizar esta sostenibilidad, podemos utilizar conceptos de economía, particularmente los relacionados con la sostenibilidad de la deuda, como se describe en el libro \textit{Macroeconomía avanzada} de Argandoña, Gómez y Mochón.
+La \textbf{deuda técnica} es un concepto en ingeniería de software que se refiere a los costos futuros incurridos por elegir una solución rápida y fácil en lugar de una solución mejor estructurada y de más alta calidad. A medida que una empresa de software continúa desarrollando y manteniendo su código base, la deuda técnica puede acumularse, lo que puede poner en riesgo la sostenibilidad a largo plazo de la empresa. Para analizar esta sostenibilidad, podemos utilizar conceptos de economía, particularmente los relacionados con la sostenibilidad de la deuda, como se describe en el libro \textit{Macroeconomía avanzada} de Argandoña, Gómez y Mochón \cite{Macroeconomía avanzada}.
 
 \section{Definición y Acumulación de la Deuda Técnica}
 La deuda técnica puede ser modelada de manera similar a la deuda financiera. Supongamos que \(D_t\) representa la cantidad de deuda técnica en el tiempo \(t\). La deuda técnica en un período \(t+1\) puede ser expresada como:
@@ -221,9 +223,11 @@ cómo la deuda técnica puede crecer hasta un punto en que los costos asociados 
 La clave para la sostenibilidad es un equilibrio adecuado entre la incurrencia de nueva deuda técnica y su reducción sistemática, manteniendo una productividad 
 que soporte los costos de la deuda técnica dentro de los límites del presupuesto disponible.
 
-\section{Referencias}
-\begin{itemize}
-    \item Argandoña, A., Gómez, C., \& Mochón, F. (2006). \textit{Macroeconomía avanzada}. McGraw-Hill.
-\end{itemize}
+
+\addcontentsline{toc}{section}{Referencias}
+\begin{thebibliography}{100}
+    \bibitem{Macroeconomía avanzada} Madariaga, J., Argandoña, A., Gámez, C., \& Mochón, F. (1998). 386 BIBLIOGRAFIA 0. ECONOMIA GENERAL. 
+    \textit TEORIA. ESTRUCTURA. HISTORIA. SISTEMAS. Boletín de estudios economicos, 53(164), 386.
+\end{thebibliography}
 
 \end{document}

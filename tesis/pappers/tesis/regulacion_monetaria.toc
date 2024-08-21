@@ -1,0 +1,7 @@
+\contentsline {section}{\numberline {1}Introducción}{3}{section.1}%
+\contentsline {section}{\numberline {2}Marco teórico}{3}{section.2}%
+\contentsline {section}{\numberline {3}Estado del arte}{3}{section.3}%
+\contentsline {section}{\numberline {4}Smart Contracts y confianza}{3}{section.4}%
+\contentsline {section}{\numberline {5}Implementación de un smart contract para regulación monetaria}{3}{section.5}%
+\contentsline {section}{\numberline {6}Conclusiones}{3}{section.6}%
+\contentsline {section}{\numberline {7}Prospectiva}{3}{section.7}%
