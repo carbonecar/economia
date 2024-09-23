@@ -1,0 +1,56 @@
+---
+title: "Autocorrelacion"
+author: "Carlos Carbone"
+date: "12/5/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+Autocorrelacion se refiere a los términos del error relacionados. 
+Sea la regresión 
+
+$$
+  Y=\beta_0+\beta_1 *Xi+u_i
+$$
+Los errores esta correlacionados consigo con otros errores cuando: 
+$$
+  u_i=\rho u_{i-1}+e_i
+$$
+Hay varias formas de si hay autocorrelación. Una de ellas es la prueba de raíz unaria, otra es observar el coeficiente de Durbin-Watson. 
+En el eviews usaremos los siguienes comandos
+
+```
+equation reg1.ls y c x
+reg1.makeresids u
+genr u1 =u(-1)
+equation reg2.ls u u1
+```
+En R studio haremos
+```{r}
+
+reg1<=lm(y~x,data=mydata)
+
+```
+
+
+
+
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
